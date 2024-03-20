@@ -9,6 +9,6 @@ plt.pie(time_day,labels=activity_labels,startangle=90)
 plt.show()
 plt.clf()
 
-one_activity='Sleeping'#You can change this to check the hours spent on an activity
+one_activity='Sleeping'#You can change this to check the hours spent on one specific activity
 t=activity[one_activity]
 print(t)
