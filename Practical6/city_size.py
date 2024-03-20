@@ -1,9 +1,11 @@
 uk_cities=[0.56,0.62,0.04,9.7]
 china_cities=[0.58,8.4,29.9,22.2]
-uk_city_names=['Edinburgh','Glasgow','Stirling','London']
-china_city_names=['Haining','hanghou','Shanghai','Beijing']
+uk_cities.sort()
+china_cities.sort()
 print(uk_cities)
 print(china_cities)
+uk_city_names=['Edinburgh','Glasgow','Stirling','London']
+china_city_names=['Haining','hanghou','Shanghai','Beijing']
 
 import numpy as np
 import matplotlib.pyplot as plt
