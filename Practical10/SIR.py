@@ -8,10 +8,12 @@ R=0
 beta=0.3
 gamma=0.05
 
-Susceptible_population=[]
-Infected_population=[]
-Recovered_population=[]
-time=[]
+Susceptible_population=[S]
+Infected_population=[I]
+Recovered_population=[R]
+time=[0]
+
+plt.figure(figsize=(10,6))
 
 days=1000
 for day in range(days):
@@ -21,15 +23,17 @@ for day in range(days):
     Recovered_population.append(R)
 
     contact_probability=I/N
-    infection_probability=contact_probability*beta
-    I_list=np.random.choice(range(2),S,p=[infection_probability,1-infection_probability])
-    New_I=np.sum(I_list==0)
-    R_list=np.random.choice(range(2),I,p=[gamma,1-gamma])
-    New_R=np.sum(R_list==0)
+    i=contact_probability*beta
+    r=gamma
+
+    I_choose=np.random.choice(range(2),S,p=[i,1-i])
+    New_I=np.sum(I_choose==0)
+    R_choose=np.random.choice(range(2),I,p=[r,1-r])
+    New_R=np.sum(R_choose==0)
     
     S-=New_I
-    R+=New_R
     I=I+New_I-New_R
+    R+=New_R
 
 plt.plot(time, Susceptible_population, label='Susceptible')
 plt.plot(time, Infected_population, label='Infected')
