@@ -35,6 +35,24 @@ for vaccinated_rate in vaccinated_rates:
 
     plt.plot(Infected_population, label=f"vaccinated ({vaccinated_rate*100}%)")
 
+vaccinated_rate=1
+S=0
+I=0
+for _ in range(1000):
+    i = beta * Infected_population[-1] / N
+    r = gamma
+
+    infected_choose = np.random.choice(range(2),S, p=[i,1-i])
+    New_I=np.sum(infected_choose==0)
+
+    recovered_choose = np.random.choice(range(2),I, p=[r,1-r])
+    New_R=np.sum(recovered_choose==0)
+
+    Susceptible_population.append(Susceptible_population[-1] -New_I)
+    Infected_population.append(Infected_population[-1]+New_I - New_R)
+plt.plot(Infected_population, label=f"vaccinated ({vaccinated_rate*100}%)")
+
+
 plt.xlabel("time")
 plt.ylabel("number of people")
 plt.title("SIR model with different vaccination rates")
