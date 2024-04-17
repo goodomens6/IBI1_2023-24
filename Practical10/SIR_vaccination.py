@@ -1,39 +1,53 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-N = 10000 
-I= 1 
-R = 0
-beta = 0.3
-gamma = 0.05 
-vaccinated_rates = [0,0.1, 0.2, 0.3, 0.4,0.5,0.6,0.7,0.8,0.9]
+N=10000 
+I=1 
+R=0
+beta=0.3
+gamma=0.05 
+vaccinated_rates=[0,0.1, 0.2, 0.3, 0.4,0.5,0.6,0.7,0.8,0.9]
 
 plt.figure(figsize=(10,6))
 
 for vaccinated_rate in vaccinated_rates:
-    V = int(vaccinated_rate * N)
-    S = N-I-R-V
+    V=int(vaccinated_rate*N)
+    S=N-I-R-V
 
-    Susceptible_population= [S]
-    Infected_population= [I]
-
-    beta = 0.3  # 传播率
-    gamma = 0.05  # 恢复率
+    Susceptible_population=[S]
+    Infected_population=[I]
 
     for _ in range(1000):
-        i = beta * Infected_population[-1] / N
-        r = gamma
+        i=beta*Infected_population[-1]/N
+        r=gamma
 
-        infected_choose = np.random.choice(range(2),Susceptible_population[-1], p=[i,1-i])
+        infected_choose = np.random.choice(range(2),Susceptible_population[-1],p=[i,1-i])
         New_I=np.sum(infected_choose==0)
 
-        recovered_choose = np.random.choice(range(2),Infected_population[-1], p=[r,1-r])
+        recovered_choose = np.random.choice(range(2),Infected_population[-1],p=[r,1-r])
         New_R=np.sum(recovered_choose==0)
 
-        Susceptible_population.append(Susceptible_population[-1] -New_I)
-        Infected_population.append(Infected_population[-1]+New_I - New_R)
+        Susceptible_population.append(Susceptible_population[-1]-New_I)
+        Infected_population.append(Infected_population[-1]+New_I-New_R)
+    plt.plot(Infected_population,label=f"vaccinated({vaccinated_rate*100}%)")
 
-    plt.plot(Infected_population, label=f"vaccinated ({vaccinated_rate*100}%)")
+vaccinated_rate=1
+S=0
+I=0
+for _ in range(1000):
+    i=0
+    r=gamma
+
+    infected_choose = np.random.choice(range(2),S,p=[i,1-i])
+    New_I=np.sum(infected_choose==0)
+
+    recovered_choose = np.random.choice(range(2),I,p=[r,1-r])
+    New_R=np.sum(recovered_choose==0)
+
+    Susceptible_population.append(Susceptible_population[-1]-New_I)
+    Infected_population.append(Infected_population[-1]+New_I-New_R)
+
+plt.plot(Infected_population,label=f"vaccinated({vaccinated_rate*100}%)")
 
 plt.xlabel("time")
 plt.ylabel("number of people")
