@@ -1,84 +1,42 @@
 import numpy as np
-import matplotlib . pyplot as plt
+import matplotlib.pyplot as plt
 
-N=10000
-S=9999
-I=1
-R=0
-beta=0.3
-gamma=0.05
+N = 10000 
+I= 1 
+R = 0
+beta = 0.3
+gamma = 0.05 
+vaccinated_rates = [0,0.1, 0.2, 0.3, 0.4,0.5,0.6,0.7,0.8,0.9]
 
-Susceptible_population=[]
-Infected_population=[]
-Recovered_population=[]
-time=[]
+plt.figure(figsize=(10,6))
 
-days=1000
-for day in range(days):
-    time.append(day)
-    Susceptible_population.append(S)
-    Infected_population.append(I)
-    Recovered_population.append(R)
+for vaccinated_rate in vaccinated_rates:
+    V = int(vaccinated_rate * N)
+    S = N-I-R-V
 
-    contact_probability=I/N
-    infection_probability=contact_probability*beta
-    I_list=np.random.choice(range(2),S,p=[infection_probability,1-infection_probability])
-    New_I=np.sum(I_list==0)
-    R_list=np.random.choice(range(2),I,p=[gamma,1-gamma])
-    New_R=np.sum(R_list==0)
-    
-    S-=New_I
-    R+=New_R
-    I=I+New_I-New_R
+    Susceptible_population= [S]
+    Infected_population= [I]
 
-plt.plot(time, Infected_population, label='Infected')
-plt.xlabel('time')
-plt.ylabel('number of people')
-plt.title('SIR model')
-plt.legend()
-plt.show()
+    beta = 0.3  # 传播率
+    gamma = 0.05  # 恢复率
 
+    for _ in range(1000):
+        i = beta * Infected_population[-1] / N
+        r = gamma
 
-import numpy as np
-import matplotlib . pyplot as plt
+        infected_choose = np.random.choice(range(2),Susceptible_population[-1], p=[i,1-i])
+        New_I=np.sum(infected_choose==0)
 
-N=10000
-S=9999
-I=1
-R=0
-beta=0.3
-gamma=0.05
+        recovered_choose = np.random.choice(range(2),Infected_population[-1], p=[r,1-r])
+        New_R=np.sum(recovered_choose==0)
 
-Susceptible_population=[]
-Infected_population=[]
-Recovered_population=[]
-time=[]
+        Susceptible_population.append(Susceptible_population[-1] -New_I)
+        Infected_population.append(Infected_population[-1]+New_I - New_R)
 
-vaccined_levels=10
-for vaccined_level in range(vaccined_levels):
-    vaccined_percent=vaccined_level/10
-    V=vaccined_percent*N
-    days=1000
-    for day in range(days):
-        time.append(day)
-        Susceptible_population.append(S)
-        Infected_population.append(I)
-        Recovered_population.append(R)
+    plt.plot(Infected_population, label=f"vaccinated ({vaccinated_rate*100}%)")
 
-        contact_probability=I/N
-        infection_probability=contact_probability*beta
-        I_list=np.random.choice(range(2),S-V,p=[infection_probability,1-infection_probability])
-        New_I=np.sum(I_list==0)
-        R_list=np.random.choice(range(2),I,p=[gamma,1-gamma])
-        New_R=np.sum(R_list==0)
-    
-        S-=New_I
-        R+=New_R
-        I=I+New_I-New_R
-
-plt.plot(time, Infected_population, label='Infected')
-plt.xlabel('time')
-plt.ylabel('number of people')
-plt.title('SIR model')
+plt.xlabel("time")
+plt.ylabel("number of people")
+plt.title("SIR model with different vaccination rates")
 plt.legend()
 plt.show()
