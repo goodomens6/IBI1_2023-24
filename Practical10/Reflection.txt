@@ -1,0 +1,8 @@
+The practical is a littlr hard for me.
+In the first two tasks, it' hard to make how the loops run and how the list for the three popilation change clear.
+In the third task, it's a little confusing at first, but the given code help me a lot to understand.
+What I enjoyed more is the second task.
+I spent a lot time asking the assistant, talking with the classmates and checking the wrong points in the code.
+Finally when I finished, I felt relieved and accomplished.
+The most important thing I learned is how to draw pictures in the loops and track the change of numbers in the loops.
+I think this will be quite useful in the further study.
