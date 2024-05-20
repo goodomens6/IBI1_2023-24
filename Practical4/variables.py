@@ -7,9 +7,9 @@ print(d>e)
 #Running and strength traiining had a greater imorovement on running time
 X=True
 Y=False
-W=not(X and Y)
+W=(X and not Y)or(not X and Y)
 #   X    Y      W
 # Ture  Ture   False
 # Ture  False  Ture
 # False Ture   Ture
-# False False  Ture
+# False False  False
