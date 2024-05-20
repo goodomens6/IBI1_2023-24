@@ -56,4 +56,6 @@ print("Alignment score between mouse sequence and rat sequence:",mouse_rat1)
 
 print("Percentage of identical amino acid between human sequence and mouse sequence:",human_mouse2)
 print("Percentage of identical amino acid between human sequence and rat sequence:",human_rat2)
-print("Percentage of identical amino acid between mouse sequence and rat sequence:",mouse_rat2)
+
+# Mouse sequence and rat sequence are mostly related
+# Mouse is a better model organism for human
