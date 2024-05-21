@@ -66,3 +66,5 @@ print("The time SAX APIs used is",str(time_taken2)+"s")
 
 plt.show()
 plt.clf
+
+#SAX APIs is the quickest
